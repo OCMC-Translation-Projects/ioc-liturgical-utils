@@ -1,5 +1,4 @@
-# Object file
-*.o
-
-# Ada Library Information
-*.ali
+/.settings/
+/repo/
+/target/
+/dependency-reduced-pom.xml
