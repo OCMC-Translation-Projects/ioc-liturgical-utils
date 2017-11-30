@@ -3,6 +3,7 @@ org/ocmc/ioc/liturgical/utils/FileUtils$4.class
 org/ocmc/ioc/liturgical/utils/FileUtils$2.class
 org/ocmc/ioc/liturgical/utils/GeneralUtils.class
 org/ocmc/ioc/liturgical/utils/Tuple.class
+org/ocmc/ioc/liturgical/utils/ApacheFileUtils.class
 org/ocmc/ioc/liturgical/utils/FileUtils$3.class
 org/ocmc/ioc/liturgical/utils/FileUtils.class
 org/ocmc/ioc/liturgical/utils/ErrorUtils.class

@@ -303,7 +303,7 @@ public class FileUtils {
 		String [] extensions = {extension};
 		List<File> files = null;
 		try {
-			files = (List<File>) org.apache.commons.io.FileUtils.listFiles(dir, extensions, true);
+			files = (List<File>) ApacheFileUtils.listFiles(dir, extensions, true);
 		} catch (Exception e) {
 			files = null;
 		}
