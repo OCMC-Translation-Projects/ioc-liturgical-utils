@@ -1,5 +1,7 @@
 package org.ocmc.ioc.liturgical.utils;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,9 +23,8 @@ import com.google.gson.JsonParser;
  *
  */
 public class GeneralUtils {
-	private static final Logger LOGGER = LoggerFactory
+	private static final Logger logger = LoggerFactory
 			.getLogger(GeneralUtils.class);
-
 
     public final static String QUOTE = "\"";
 	
@@ -48,7 +49,7 @@ public class GeneralUtils {
 						;
 			}
 		} catch (Exception e) {
-			ErrorUtils.report(LOGGER, e);
+			ErrorUtils.report(logger, e);
 		}
 		return result;
 	}
@@ -64,7 +65,7 @@ public class GeneralUtils {
 		try {
 			result = new JsonParser().parse(json).getAsJsonObject();
 		} catch (Exception e) {
-			ErrorUtils.report(LOGGER, e);
+			ErrorUtils.report(logger, e);
 			result = null;
 		}
 		return result;
@@ -297,5 +298,32 @@ public class GeneralUtils {
 	public static String unescapeQuotes(String text) {
 			return text.replaceAll("\\\\"+QUOTE,QUOTE);
 	}
+	
+	public static String getMacAddress() {
+		StringBuilder sb = new StringBuilder();
+		try {
+			InetAddress ip = InetAddress.getLocalHost();
+			NetworkInterface network = NetworkInterface.getByInetAddress(ip);
+			byte[] mac = network.getHardwareAddress();
+			for (int i = 0; i < mac.length; i++) {
+				sb.append(String.format("%02X%s", mac[i], (i < mac.length - 1) ? "-" : ""));
+			}
+		} catch (Exception e) {
+			sb = new StringBuilder();
+			sb.append("unknown");
+		}
+		return sb.toString();
+	}
+	
+	public static String getHostName() {
+		try {
+			return InetAddress.getLocalHost().getCanonicalHostName();
+		} catch (Exception e) {
+			ErrorUtils.report(logger, e);
+			return null;
+		}
+	}
+
+
 
 }
