@@ -1,5 +1,6 @@
 package org.ocmc.ioc.liturgical.utils;
 
+import java.io.InputStream;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.text.Normalizer;
@@ -323,7 +324,67 @@ public class GeneralUtils {
 			return null;
 		}
 	}
+	
+	public static InputStream getResource(Class c, String path) {
+		return c.getResourceAsStream(path);
+	}
+	
+    public static String done(long x, long y) {
+   	   int percentage = (int)(x * 100.0 / y + 0.5);
+       	return String.format("%,d%% done.", percentage);
+       }
 
+	 /**
+     * Computes the percentage of compression
+     * @param x
+     * @param y
+     * @return
+     */
+    public static String compression(int x, int y) {
+    	   int percentage =  100 - (int)(x * 100.0 / y + 0.5);
+        	return String.format("%,d%%", percentage);
+        }
+
+	/**
+	 * For the given resource name (without a .ares extension),
+	 * extract the domain portion of the resource.
+	 * In other words, strip off the topic part.
+	 * @param resource
+	 * @return the domain portion of the resource name
+	 */
+	public static String domainFromResource(String resource) {
+		String result = "";
+		try {
+			String[] parts = resource.split("_");
+			if (parts.length > 3) {
+				result = parts[1] + "_" 
+						+ parts[2] + "_"
+						+ parts[3];
+			} else if (parts.length == 3) {
+				result = resource;
+			} else {
+				result = null;
+			}
+		} catch (Exception e) {}
+		return result;
+	}
+	
+	/**
+	 * For the given resource, replace the domain portion with a new one
+	 * @param resource - the resource name to be converted
+	 * @param newDomain - the new domain to use
+	 * @return - the converted resource
+	 */
+	public static String changeResourceDomain(String resource, String newDomain) {
+		String result = "";
+		try {
+			String[] parts = resource.split("_");
+			if (parts.length > 3) {
+				result = parts[0] + "_" + newDomain;
+			}
+		} catch (Exception e) {}
+		return result;
+	}
 
 
 }
