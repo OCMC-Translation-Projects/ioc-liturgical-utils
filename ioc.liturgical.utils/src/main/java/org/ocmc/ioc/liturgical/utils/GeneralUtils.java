@@ -336,9 +336,9 @@ public class GeneralUtils {
 
 	 /**
      * Computes the percentage of compression
-     * @param x
-     * @param y
-     * @return
+     * @param x x
+     * @param y y
+     * @return compression percentage
      */
     public static String compression(int x, int y) {
     	   int percentage =  100 - (int)(x * 100.0 / y + 0.5);
@@ -349,7 +349,7 @@ public class GeneralUtils {
 	 * For the given resource name (without a .ares extension),
 	 * extract the domain portion of the resource.
 	 * In other words, strip off the topic part.
-	 * @param resource
+	 * @param resource the resource
 	 * @return the domain portion of the resource name
 	 */
 	public static String domainFromResource(String resource) {

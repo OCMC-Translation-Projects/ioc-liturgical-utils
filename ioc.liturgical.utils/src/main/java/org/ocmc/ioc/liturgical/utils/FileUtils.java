@@ -110,9 +110,9 @@ public class FileUtils {
 	
 	/**
 	 * Finds all index.html files that are for services
-	 * @param directory
-	 * @param extension
-	 * @return list<File> of index.html files
+	 * @param directory the directory
+	 * @param extension the file extension
+	 * @return  list of index.html files
 	 */
 	public static List<File> getServicesHtmlFilesInDirectory(String directory, final String extension) {
 		List<File> list = getFilesInDirectory(directory, extension);
@@ -146,7 +146,7 @@ public class FileUtils {
 
 	/**
 	 * Attempts to get the Href to use for the combined PDFs for this service.
-	 * @param file
+	 * @param file the file
 	 * @return the Href if found, else null
 	 */
 	public static String getMergedPdfHrefFromHtmlFile(File file) {
@@ -218,7 +218,7 @@ public class FileUtils {
 	/**
 	 * Converts xml (i.e. html) into a Json Object
 	 * @param f the xml (i.e. html)
-	 * @return
+	 * @return json object
 	 */
 	public static JSONObject xmlToJson(File f) {
 		try {
@@ -254,7 +254,7 @@ public class FileUtils {
 	
 	/**
 	 * Recursively read contents of directory and return all files found
-	 * @param directory
+	 * @param directory the directory
 	 * @param fileRegularExpression - a regex to apply to the filename
 	 * @param extension period + file extension, e.g. .html
 	 * @return List containing all files found
@@ -268,7 +268,7 @@ public class FileUtils {
 	
 	/**
 	 * Recursively read contents of directory and return all files found
-	 * @param directory
+	 * @param directory the directory
 	 * @param fileRegularExpressions - a string array of regular expressions to apply to the filename
 	 * @param extension period + file extension, e.g. .html
 	 * @return List containing all files found
@@ -294,7 +294,7 @@ public class FileUtils {
 
 	/**
 	 * Recursively read contents of directory and return all files found
-	 * @param directory
+	 * @param directory the directory
 	 * @param extension period + file extension, e.g. .html
 	 * @return A list for all files found
 	 */
@@ -339,8 +339,8 @@ public class FileUtils {
 	/**
 	 * Takes a map as input and returns a new map that only contains
 	 * keys that had a substring that matches the target.
-	 * @param map - the map to search
-	 * @param target - the substring to apply against strings
+	 * @param map  the map to search
+	 * @param target  the substring to apply against strings
 	 * @return a map only containing entries whose key contains the target.
 	 */
 	public static TreeMap<String,File> filter(TreeMap<String,File> map, String target) {
@@ -362,10 +362,11 @@ public class FileUtils {
 	}
 	
 	/**
-	 * Takes a map as input and returns a new map that replaces the existing domain with a new one.
-	 * @param map - the map to search
-	 * @param target - the substring to apply against strings
-	 * @return a map only containing entries whose key contains the target.
+	 * 
+	 * @param map to be transformed
+	 * @param currentDomain used in map
+	 * @param newDomain new one to use
+	 * @return new map that replaces the existing domain with a new one.
 	 */
 	public static TreeMap<String,File> map(TreeMap<String,File> map, String currentDomain, String newDomain) {
 		TreeMap<String,File> result = new TreeMap<String,File>();
@@ -436,9 +437,9 @@ public class FileUtils {
 	
 	/**
 	 * Get the contents of the specified resource 
-	 * @param o
-	 * @param resource
-	 * @return
+	 * @param o object
+	 * @param resource the resource
+	 * @return contents of the specified resource 
 	 */
 	public static String getResourceFileContent(Object o, String resource) {
 		try {
@@ -504,9 +505,9 @@ public class FileUtils {
 	/**
 	 * Assumptions: o is the main app class in a runnable jar and 
 	 * there is a resources directory in the same folder as that class
-	 * @param o
-	 * @param resource
-	 * @return
+	 * @param o object
+	 * @param resource the resource
+	 * @return the file
 	 */
 	public static File getResourceInJar(Object o, String resource) {
 		String newPath = "";
@@ -621,9 +622,9 @@ public class FileUtils {
 	/**
 	 * Replaces forward slashes in path with periods and returns a file 
 	 * name based on the path information
-	 * @param path
-	 * @param fileName
-	 * @return
+	 * @param path the path 
+	 * @param fileName the name of the file
+	 * @return changed file name
 	 */
 	public static String pathToName(String path, String fileName) {
 		return path.split("m/s/")[1].replace("/", ".") + fileName;
@@ -684,8 +685,8 @@ public class FileUtils {
 	
 	/**
 	 * Creates a new file in a safe manner
-	 * @param path
-	 * @return File
+	 * @param path the path
+	 * @return File 
 	 */
 	public static File createFile(String path) {
 		File file = null;
@@ -706,7 +707,7 @@ public class FileUtils {
 	/**
 	 * Checks to see if the file or directory specified
 	 * in the path actually exists
-	 * @param path
+	 * @param path the path
 	 * @return true if it does
 	 */
 	public static boolean fileExists(String path) {
@@ -724,8 +725,8 @@ public class FileUtils {
 	/**
 	 * Convert from a filename to a file URL.
 	 * @author John Holder
-	 * @param filename
-	 * @return file URL
+	 * @param filename the filename
+	 * @return file URL 
 	 */
 	public static String convertToFileURL ( String filename )
 	{
@@ -749,7 +750,7 @@ public class FileUtils {
 	 * RestManager the canonical path to the tms, appending the supplied
 	 * folder.
 	 * @author John Holder
-	 * @param folder - subfolder within the tms directory
+	 * @param subfolder - subfolder within the tms directory
 	 * @return canonical path.  You will need to add File.separator if you append further directories.
 	 */
 	public static String getTmsSubFolderCanonicalPath(String subfolder) {
@@ -765,7 +766,7 @@ public class FileUtils {
 	/**
 	 * Combines calls to getTmsSubFolderCanonicalPath and convertToFileURL into single method
 	 * @author John Holder
-	 * @param subfolder - subpath within the TMS folder
+	 * @param subpath - subpath within the TMS folder
 	 * @return the path formatted as a File URL, prefixed with the canonical path to the TMS folder
 	 */
 	public static String getTmsSubFolderFileUrlEncoded(String subpath) {
@@ -782,7 +783,7 @@ public class FileUtils {
 	/**
 	 * Return the supplied path as a subpath within the TMS folder
 	 * @author John Holder
-	 * @param subfolder within the TMS folder
+	 * @param subpath within the TMS folder
 	 * @return the URL of the canonical path to the subfolder, prefixed with the path to the TMS folder.
 	 */
 	public static URL getTmsSubFolderFileURL(String subpath) {
@@ -798,7 +799,7 @@ public class FileUtils {
 	/**
 	 * Convenience method to get the Path to the folder containing
 	 * the file or directory in the supplied path.
-	 * @param path
+	 * @param path the path
 	 * @return path to parent
 	 */
 	public static String getParentPath(String path) {
@@ -811,7 +812,7 @@ public class FileUtils {
 	}
 	/**
 	 * For the supplied path to a directory
-	 * @param path
+	 * @param path the path
 	 * @return the immediate child directories
 	 */
 	public static File[] getDirectChildDirectories(String path) {
@@ -910,8 +911,8 @@ public class FileUtils {
 	/**
 	 * Reads HTML files in the specified directory and
 	 * returns them as Jsoup documents
-	 * @param dirPath
-	 * @return
+	 * @param dirPath the path
+	 * @return jsoup docs
 	 */
 	public static List<Document> getJsoupDocsFromDirectory(String dirPath) {
 		List<Document> result = new ArrayList<Document>();

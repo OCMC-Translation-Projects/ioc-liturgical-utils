@@ -96,4 +96,21 @@ public class ErrorUtils {
 			LOGGER.info("Please check the log for details...");
 		}
 	}
+	
+	public static void error(Logger logger, String message) {
+		if (logger.isErrorEnabled()) {
+			logger.error(message);
+		} else {
+			logger.info("ERROR: " + message);
+		}
+	}
+
+	public static void warn(Logger logger, String message) {
+		if (logger.isWarnEnabled()) {
+			logger.warn(message);
+		} else {
+			logger.info("WARNING: " + message);
+		}
+	}
+
 }

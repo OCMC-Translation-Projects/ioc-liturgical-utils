@@ -712,7 +712,7 @@ public class LiturgicalDayProperties {
 		/**
 		 * When the template user sets the movable cycle day using
 		 * Set_mcDay, this method will be called.
-		 * @param d
+		 * @param d day
 		 */
 	    public void overrideMovableCycleDay(int d) {
 	    		if (d == 0) {
@@ -918,9 +918,9 @@ public class LiturgicalDayProperties {
 		}
 		
 		/** 
-		 * Get an interger representation of what we in Lent this date
+		 * Get an integer representation of what week in Lent this date
 		 * occurs in.
-		 * @return
+		 * @return integer representation of the week of lent for this date
 		 */
 		public int getIntWeekOfLent() {
 			int result = 0;
@@ -1000,7 +1000,7 @@ public class LiturgicalDayProperties {
 		 * @param language - the Java locale language code
 		 * @param country - the Java locale country code
 		 * @param format - the format to use to display the date
-		 * @return
+		 * @return date
 		 */
 		public String getDisplayDateForLocale(String language, String country, String format) {
 			String result = "";
@@ -1841,7 +1841,7 @@ public class LiturgicalDayProperties {
 		 * Returns a Gregorian Calendar that is
 		 * set to the Julian date of the date being
 		 * used by Liturgical Day Properties
-		 * @return
+		 * @return gregorian calendar
 		 */
 		public GregorianCalendar getTheDayAsJulian() {
 			return adjustToJulianDate(theDayLiturgical);
@@ -1849,8 +1849,8 @@ public class LiturgicalDayProperties {
 		
 		/**
 		 * Returns a calendar adjusted back 13 days
-		 * @param c
-		 * @return
+		 * @param c calendar
+		 * @return calendar adjusted back 13 days
 		 */
 		public GregorianCalendar adjustToJulianDate(GregorianCalendar c) {
 			GregorianCalendar adjusted = new GregorianCalendar(
@@ -1863,8 +1863,8 @@ public class LiturgicalDayProperties {
 
 		/**
 		 * Returns a calendar moved forward 13 days
-		 * @param c
-		 * @return
+		 * @param c calendar
+		 * @return calendar moved forward 13 days
 		 */
 		public GregorianCalendar adjustToGregorianDate(GregorianCalendar c) {
 			GregorianCalendar adjusted = new GregorianCalendar(
