@@ -636,7 +636,7 @@ public class FileUtils {
 	 * @param file - ares filename
 	 * @return array with topic in [0] and domain in [1]
 	 */
-	public static String[] getAresFileParts(String file) {
+	public static String[] getAresFileParts(String file, String domain_delimiter) {
 		String [] theParts;
 		String [] result;
 		try {
@@ -644,7 +644,7 @@ public class FileUtils {
 			result = new String[2];
 			if (theParts.length ==4) {
 				result[0] = theParts[0];
-				result[1] = (theParts[1] + "." + theParts[2] + "." + theParts[3].replace(".tsf", "")).toLowerCase();
+				result[1] = (theParts[1] + domain_delimiter + theParts[2] + domain_delimiter + theParts[3].replace(".tsf", "")).toLowerCase();
 			} else {
 				result = null;
 			}
