@@ -632,8 +632,9 @@ public class FileUtils {
 	
 	
 	/**
-	 * For a given ares filename, return the topic and domain parts
-	 * @param file - ares filename
+	 * 
+	 * @param file the filename
+	 * @param domain_delimiter the delimited used in the filename
 	 * @return array with topic in [0] and domain in [1]
 	 */
 	public static String[] getAresFileParts(String file, String domain_delimiter) {

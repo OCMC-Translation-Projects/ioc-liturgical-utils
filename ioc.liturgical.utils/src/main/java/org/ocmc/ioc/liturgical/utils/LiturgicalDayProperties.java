@@ -620,6 +620,7 @@ public class LiturgicalDayProperties {
 		/**
 		 * Sometimes it is necessary to temporarily override the mode of the week
 		 * It is important to clear the override after using it
+		 * @param mode the mode
 		 */
 		public void setModeOfTheWeekOverride(String mode) {
 			try {

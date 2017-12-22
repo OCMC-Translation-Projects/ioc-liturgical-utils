@@ -385,6 +385,20 @@ public class GeneralUtils {
 		} catch (Exception e) {}
 		return result;
 	}
+	
+	/**
+	 * Setting a Java object to another makes a reference.
+	 * So modifying one value changes the other and vice versa.
+	 * This method copies the value of each string into a new list
+	 * and returns that list.
+	 * @param list the list to copy
+	 * @return a new list that can be modified without affecting the original
+	 */
+	public static List<String> copy(List<String> list) {
+		List<String> result = new ArrayList<String>();
+		list.forEach(i -> result.add(i));
+		return result;
+	}
 
 
 }

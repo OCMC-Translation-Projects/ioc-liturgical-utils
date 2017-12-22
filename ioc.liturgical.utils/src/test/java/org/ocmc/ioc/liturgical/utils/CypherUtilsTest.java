@@ -70,6 +70,19 @@ public class CypherUtilsTest {
 	}
 
 	@Test
+	public void testGetQueryToRenameRelationshipType() {
+		String s = CypherUtils.getQueryToRenameRelationshipType(
+				"DELETE"
+				, "en_sys_nouns~en_uk_lash~actors~Priest~newkey"
+				, "DELETE_HAS_NOTES"
+				, "DELETED_HAS_NOTES"
+				);
+		System.out.println("testGetQueryToRenameRelationshipType");
+		System.out.println(s);
+		assertTrue(s.length() > 0);
+	}
+
+	@Test
 	public void testGetQueryToGloballyReplaceLibrary() {
 		String s = CypherUtils.getQueryToGloballyReplaceLibrary(
 				"en_sys_verbs"

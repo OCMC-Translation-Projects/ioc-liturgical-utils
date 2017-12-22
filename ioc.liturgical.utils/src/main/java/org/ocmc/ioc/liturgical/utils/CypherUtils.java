@@ -50,7 +50,6 @@ public class CypherUtils {
 		sb.append(label);
 		sb.append(") where n.id starts with '");
 		sb.append(fromLibrary);
-		sb.append("~' ");
 		sb.append("set n.id = ");
 		sb.append(replaceClause);
 		sb.append(" '~' + n.topic + '~' + n.key ");
@@ -163,7 +162,9 @@ public class CypherUtils {
 		sb.append(replaceLibraryClause);
 		sb.append(", n.topic = ");
 		sb.append(replaceTopicClause);
-		sb.append("return n.id");
+		sb.append(" ");
+		sb.append(getLabelRenameClause("n", fromLibrary, toLibrary));
+		sb.append(" return n.id");
 		return sb.toString();
 	}
 
@@ -175,8 +176,8 @@ public class CypherUtils {
 	 * 
 	 * Caution: only use this if you want to change all 
 	 * key values irrespective of the other labels.
-	 * @param fromLibrary
-	 * @param toLibrary
+	 * @param fromLibrary from library
+	 * @param toLibrary to library
 	 * @return the query to replace a matching library for all docs
 	 */
 	public static String getQueryToGloballyReplaceLibrary(
@@ -192,9 +193,8 @@ public class CypherUtils {
 				);
 		sb.append("match (n:");
 		sb.append(ROOT);
-		sb.append(") where n.id starts with '");
+		sb.append(") where n.library starts with '");
 		sb.append(fromLibrary);
-		sb.append("~");
 		sb.append("' set n.id = ");
 		sb.append(replaceLibraryClause);
 		sb.append(" + '~' + n.topic + '~' + n.key ");
@@ -203,6 +203,37 @@ public class CypherUtils {
 		sb.append(" ");
 		sb.append(getLabelRenameClause("n", fromLibrary, toLibrary));
 		sb.append(" return n.id");
+		return sb.toString();
+	}
+	
+	/**
+	 * For (f)-[r]-&gt;(t) renames the type of r. 
+	 * @param fromNodeLabel from node label
+	 * @param fromNodeId from node id
+	 * @param fromType from type
+	 * @param toType to type
+	 * @return the query to run
+	 */
+	public static String getQueryToRenameRelationshipType(
+			String fromNodeLabel
+			, String fromNodeId
+			, String fromType
+			, String toType
+			) {
+		StringBuffer sb = new StringBuffer();
+		sb.append("match (f:");
+		sb.append(fromNodeLabel);
+		sb.append(" {id: '");
+		sb.append(fromNodeId);
+		sb.append("'})-[r:");
+		sb.append(fromType);
+		sb.append("]->(t) ");
+		sb.append("create (f)-[r2:");
+		sb.append(toType);
+		sb.append("]->(t) ");
+		sb.append("set r2 = r ");
+		sb.append("delete r ");
+		sb.append("return f.id ");
 		return sb.toString();
 	}
 	
