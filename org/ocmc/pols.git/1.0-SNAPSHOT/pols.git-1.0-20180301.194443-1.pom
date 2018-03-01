@@ -1,0 +1,179 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.ocmc</groupId>
+	<artifactId>pols.git</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>pols.git</name>
+  <url>https://github.com/OCMC-Translation-Projects/pols-git</url>
+
+  <properties>
+	<author>mcolburn</author>
+	<committer>mcolburn</committer>
+	<java.version>1.8</java.version>
+  	<maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+   <!-- github server corresponds to entry in ~/.m2/settings.xml -->
+    <github.global.server>github</github.global.server>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  
+  <scm>
+	<url>https://github.com/OCMC-Translation-Projects/pols-git</url>
+	<connection>scm:git:https://github.com/OCMC-Translation-Projects/pols-git.git</connection>
+	<developerConnection>scm:git:https://github.com/OCMC-Translation-Projects/pols-git.git</developerConnection>
+   </scm>
+   
+     	<repositories>
+	    <repository>
+	        <id>ioc-liturgical-schemas</id>
+	        <url>https://raw.github.com/OCMC-Translation-Projects/ioc-liturgical-schemas/mvn-repo/</url>
+	        <snapshots>
+	            <enabled>true</enabled>
+	            <updatePolicy>always</updatePolicy>
+	        </snapshots>
+	    </repository>
+	    <repository>
+	        <id>ioc.liturgical.utils</id>
+	        <url>https://raw.github.com/OCMC-Translation-Projects/ioc-liturgical-utils/mvn-repo/</url>
+	        <snapshots>
+	            <enabled>true</enabled>
+	            <updatePolicy>always</updatePolicy>
+	        </snapshots>
+	    </repository>
+	</repositories>
+   
+
+	<distributionManagement>
+	    <repository>
+	        <id>internal.repo</id>
+	        <name>Temporary Staging Repository</name>
+	        <url>file://${project.build.directory}/mvn-repo</url>
+	    </repository>
+	</distributionManagement>
+	
+	<dependencies>
+	    <dependency>
+	      <groupId>junit</groupId>
+	      <artifactId>junit</artifactId>
+	      <version>4.11</version>
+	      <scope>test</scope>
+	    </dependency>
+	    		<dependency>
+		  <groupId>org.ocmc</groupId>
+		  <artifactId>ioc.liturgical.utils</artifactId>
+		  <version>1.0-SNAPSHOT</version>
+	    </dependency>
+		<dependency>
+		  <groupId>org.ocmc</groupId>
+		  <artifactId>ioc.liturgical.schemas</artifactId>
+		  <version>1.0-SNAPSHOT</version>
+	    </dependency>
+		<dependency>
+		    <groupId>org.eclipse.jgit</groupId>
+		    <artifactId>org.eclipse.jgit</artifactId>
+		    <version>4.10.0.201712302008-r</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.eclipse.mylyn.github</groupId>
+		    <artifactId>org.eclipse.egit.github.core</artifactId>
+		    <version>2.1.5</version>
+		</dependency>
+	</dependencies>
+   <build>
+        <resources>
+            <resource>
+                <directory>${basedir}/src/main/resources</directory>
+                <includes>
+                    <include>META-INF/**</include>
+                    <include>public/**</include>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+        </resources>
+        <plugins>
+			<plugin>
+			        <groupId>org.apache.maven.plugins</groupId>
+			        <artifactId>maven-surefire-plugin</artifactId>
+			        <version>2.12.4</version>
+				   <configuration>
+			          <skipTests>true</skipTests>
+			       </configuration>
+			  </plugin>
+			 <plugin>
+				  <groupId>org.apache.maven.plugins</groupId>
+				  <artifactId>maven-source-plugin</artifactId>
+			      <version>3.0.1</version>
+				  <executions>
+				    <execution>
+				      <id>attach-sources</id>
+				      <goals>
+				        <goal>jar</goal>
+				      </goals>
+				    </execution>
+				  </executions>
+			</plugin>
+			<plugin>
+			  <groupId>org.apache.maven.plugins</groupId>
+			  <artifactId>maven-javadoc-plugin</artifactId>
+			      <version>3.0.0</version>
+			  <executions>
+			    <execution>
+			      <id>attach-javadocs</id>
+			      <goals>
+			        <goal>jar</goal>
+			      </goals>
+			    </execution>
+			  </executions>
+			</plugin>
+		    <plugin>
+		        <artifactId>maven-deploy-plugin</artifactId>
+		        <version>2.8.1</version>
+		        <configuration>
+		            <altDeploymentRepository>internal.repo::default::file://${project.build.directory}/mvn-repo</altDeploymentRepository>
+		        </configuration>
+		    </plugin>
+		    <plugin>
+		      <groupId>org.apache.maven.plugins</groupId>
+		      <artifactId>maven-gpg-plugin</artifactId>
+		      <version>1.5</version>
+		      <executions>
+		        <execution>
+		          <id>sign-artifacts</id>
+		          <phase>verify</phase>
+		          <goals>
+		            <goal>sign</goal>
+		          </goals>
+		        </execution>
+		      </executions>
+		    </plugin>
+      <plugin>
+	            <groupId>com.github.github</groupId>
+	            <artifactId>site-maven-plugin</artifactId>
+	            <version>0.12</version>
+	            <configuration>
+	                <message>Maven artifacts for ${project.version}</message>  <!-- git commit message -->
+	                <noJekyll>true</noJekyll>                                  <!-- disable webpage processing -->
+	                <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory> <!-- matches distribution management repository url above -->
+	                <branch>refs/heads/mvn-repo</branch>                       <!-- remote branch name -->
+	                <includes><include>**/*</include></includes>
+	                <merge>true</merge>                                        <!-- don't delete old artifacts -->
+	                <repositoryName>ioc-liturgical-utils</repositoryName>      <!-- github repo name -->
+	                <repositoryOwner>OCMC-Translation-Projects</repositoryOwner>    <!-- github username  -->
+	            </configuration>
+	            <executions>
+	              <!-- run site-maven-plugin's 'site' target as part of the build's normal 'deploy' phase -->
+	              <execution>
+	                <goals>
+	                  <goal>site</goal>
+	                </goals>
+	                <phase>deploy</phase>
+	              </execution>
+	            </executions>
+	        </plugin>
+        </plugins>
+    </build>
+</project>
